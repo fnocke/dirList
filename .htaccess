@@ -1,0 +1,61 @@
+# Normally, turn off (or assume turned of) outside parseable folders for security
+# Options -Indexes
+
+# Just precautions
+Options -MultiViews
+AddDefaultCharset UTF-8
+
+# might be helpful for ad-hoc image processing, i.e. generate (small) thumbs from (very large) fullres images
+php_value memory_limit 128M
+
+RewriteEngine On
+RewriteBase /
+
+# hotfix for trailing (CC-BY
+RewriteRule ^(.*)\/\(CC-BY$ /$1/ [L,R=307]
+
+# -----------------------------------------
+# This is my specific personal hack, to locally (Win) see errors, while live (linux) not.
+# You can remove this block in whole.
+# see http://perishablepress.com/advanced-php-error-handling-via-htaccess/
+# Supress user-facing php errors, do write to log:
+<IfModule !mod_win32.c>
+	php_flag display_startup_errors off
+	php_flag display_errors off
+	php_flag log_errors on
+</IfModule>
+# -----------------------------------------
+
+# (temporary, handy for debugging, if all matches fail)
+# ErrorDocument 404 /static/dump.php?error=404
+
+
+# Cache.php related ----------------------------------------------------
+
+# smart never-expires image cache: rewrite cache/ => _cache/ and strip timestamp:
+RewriteRule ^cache/(.*(?:jpg|png))/\d{9,11}$     /_cache/$1
+
+# Statics.php related --------------------------------------------------
+
+# smart never-expires static folder (and outside regular tree / distinct domain, if wanted)
+# rewrite-away timestamped files OLD
+RewriteRule ^static/(.*)/\d{9,11}$ /static1234/$1  [NC,L]
+# and new (solves relative path issues, i.e. CSS sprites)
+RewriteRule ^static/(.*)-\d{9,11}$ /static1234/$1  [NC,L]
+# rewrite non-timestamp files
+RewriteRule ^static/(.*)$    /static1234/$1  [NC,L]
+
+# Option: enforce / educate about using timestamped urls
+# RewriteRule ^static/(.*)$ /needTimestamp.php [NC,L]
+
+
+# ----------------------------------------------------------------------
+# The important section to activate dirListing
+
+# Place these two lines *after* all your rewriting rules (if any).
+# - for dirList to work, +Indexes is not required
+# - yes, aiming at an absolute path from root (or where it resides)
+
+DirectoryIndex index.php index.html /template.php
+Action  application/x-httpd-parse /template.php
+

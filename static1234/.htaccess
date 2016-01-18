@@ -1,0 +1,27 @@
+# ( most of this file is superficous (albeit harmless) if you don't settle for static domains )
+
+Options -Indexes
+
+<IfModule mod_headers.c>
+	# removing moot / revealing / time consuming headers
+    Header unset Last-Modified
+    Header unset ETag
+    Header unset Server
+	# setting never-expire and advising global caches
+	# (very important for performance => having headers enabled highly recommended! )
+    # the trick: sure, they never expire but they keep being sold under even different names,
+    # (added timestamp, rewritten away) when something changes
+    Header set Expires "Thu, 05 Nov 2030 17:18:19 GMT"
+    Header set Cache-Control "public, no-transform"
+</IfModule>
+
+FileETag None
+
+RewriteEngine On
+# rewrite-away timestamps  files (only needed if virtual and actual dir differ)
+# (harmless, but only needed on this level, if you map the static folder to a distinct domain)
+
+# rewrite-away timestamped files OLD
+RewriteRule ^(.*)/\d{9,11}$ /$1  [NC,L]
+# and new (solves relative path issues, i.e. CSS sprites)
+RewriteRule ^(.*)-\d{9,11}$ /$1  [NC,L]

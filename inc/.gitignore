@@ -1,0 +1,8 @@
+dirlist_config.inc
+develnotes.txt
+logs
+inc/Config.php
+/.idea/
+/.project
+/.settings
+/.buildpath

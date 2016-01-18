@@ -1,0 +1,397 @@
+>/*
+
+
+
+ z-index
+	10 .item.thumb:hover
+	20 .dirList-grid .download
+	24 #fotorama
+*/
+
+
+/* 0) general dirList Styling (both list and grid, all sizes ) ------------------------------------------- */
+hr.clear {
+	clear:both;
+	display: block;
+	float: none;
+	font-size: 0;
+	margin: 0;
+	padding: 0;
+	border-color: transparent;
+}
+
+.dirList {
+	padding:5px 0 10px 0; /* matter of taste */
+}
+
+.dirList a {
+	display:block;
+	text-decoration: none;
+	color:#444;
+
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+.dirList img {
+	border:none;
+}
+
+.dirList .item:hover {
+	display:inherit;
+	color:black;
+
+	/* make clear, this is a (passive) choice (some  poart of it will highlight)*/
+	background-color:#bbb;
+
+	/* like border, just w/o annoying height jumps */
+	box-shadow:0 0 1px 0 black;
+	-moz-box-shadow:0 0 1px 0 black;
+	-webkit-box-shadow:0 0 0 0 black;
+
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+/* scale thumbnails only, and only for grid-mode */
+.dirList-grid .item.thumb:hover img {
+	transform:scale(1.5,1.5);
+	-moz-transform:scale(1.5,1.5);
+	-webkit-transform:scale(1.5,1.5);
+	z-index: 10;
+}
+
+/* download general --------------- */
+/* initially hide */
+.dirList .download {
+	display:none;
+}
+
+/* show when over item */
+.dirList .item:hover .download {
+	display:block;
+}
+
+/* hightlight when over download */
+.dirList .item .download:hover {
+	background-color: white; /* must not be transparent */
+}
+
+/* be explicit for precedence*/
+.dirList a.view:hover,
+.dirList a.download:hover
+{
+	background-color: #eee;
+
+	box-shadow:0 3px 2px 0 rgba(0,0,0,.6);
+	-moz-box-shadow:0 3px 2px 0 rgba(0,0,0,.6);
+	-webkit-box-shadow:0 3px 2px 0 rgba(0,0,0,.6);
+}
+
+/* 0a) general, not mode- but size-depending, shadows for thumbs */
+
+.dirList li.thumb img {
+	box-shadow:0 2px 2px 0 rgba(0,0,0,.5);
+	-moz-box-shadow:0 2px 2px 0 rgba(0,0,0,.5);
+	-webkit-box-shadow:0 2px 2px 0 rgba(0,0,0,.5);
+}
+
+/* TODO: interpolate ^v
+	.dirList-64 li.thumb img
+	.dirList-256 li.thumb img
+*/
+
+.dirList-128 li.thumb img {
+	box-shadow:1px 2px 3px 1px rgba(0,0,0,.6);
+	-moz-box-shadow:1px 2px 3px 1px rgba(0,0,0,.6);
+	-webkit-box-shadow:1px 2px 3px 1px rgba(0,0,0,.6);
+}
+
+
+/* 1a) general list styling ------------------------------------------------- */
+/* lists are typically limited to 780 (or 960) px, while grids use the whole width */
+.dirList-list {
+	/*
+	done via (mobile-adjust-styled) .singeCol instead
+	margin:0 auto;
+	width:780px; */
+}
+
+.dirList-list li.item {
+	display:block;
+	position:relative;
+
+	list-style: none;
+	padding:0;
+	margin:0;
+
+	clear:both; /* just in case */
+}
+
+.dirList-list li.item-even {
+   background: rgba(255, 255, 255, 0.2);
+}
+
+
+/* pack download link to the right */
+.dirList-list .download {
+	position:absolute;
+	top:0;
+	right:0;
+	height:100%;
+
+	background: transparent url('/static/icon/32/download.png') no-repeat center right;
+
+	width:80px;
+	padding-right:40px; /* totals: 120px */
+
+	text-align: right;
+}
+
+/* to align the text w/o sacrificing height */
+.dirList-list .download span {
+	display:block;
+	margin-top:12px;
+}
+
+/* everything else is view-land (including image,filename, filesize)
+*/
+.dirList-list .view, .dirList-list .item-empty {
+	/* optional: make room for download (could also underlap) */
+	margin-right: 120px; /* for Download */
+	padding:12px 0 0 42px; /* left:32px (img) + 10px = 42px */
+	min-height: 28px;
+}
+
+.dirList-list .item-singleCol .view {
+	margin-right: 0;
+}
+
+.dirList-list span.filename {
+	padding-right: 50px;
+}
+
+.dirList-list .filesize {
+	display:block;
+	/* position:absolute; */
+	float: right;
+	
+	color:#666;
+	font-size: 0.8em;
+	font-weight: bold;
+
+	padding: 2px 10px 0;
+}
+
+/* icon or thumb */
+.dirList-list img {
+	display:block;
+	position:absolute;
+	top:5px;
+	left:5px;
+}
+
+/* responsive adaptations ------------- */
+@media screen and (max-width: 600px) {
+	.dirList-list .view, .dirList-list .item-empty {
+		margin-right: 40px;
+	}
+
+	.dirList-list .download {
+		width: 0 !important;
+		overflow: hidden !important;
+		font-size: 0;
+	}
+
+	.dirList-list .filesize {
+		right: 40px;
+	}
+}
+
+@media screen and (max-width: 320px) {
+	.dirList-list .filesize {
+		display: none;
+	}
+}
+
+
+/* 1b) dirList-list 64px size ----------------------------------------- */
+
+/* TODO */
+
+/* 1c) dirList-list 128px size ----------------------------------------- */
+
+ul.dirList-list-128 .view, ul.dirList-list-128 .item-empty {
+	/* optional: make room for download (could also underlap) */
+	margin-right: 180px; /* for Download */
+	padding:12px 0 0 150px; /* left:128px (img) + 10px = 138px */
+	min-height: 128px;
+}
+
+/* pack download link to the right */
+ul.dirList-list-128 .download {
+	background-image: url('/static/icon/64/download.png');
+	width:110px;
+	padding-right:70px;
+}
+
+ul.dirList-list-128 a.view:hover, /* be explicit for precedence*/
+ul.dirList-list-128 a.download:hover
+{
+	border-radius: 12px;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+}
+
+.dirList-list-128 span.filename {
+	padding-right: 120px;
+}
+
+.dirList-list-128 .filesize {
+	right:180px; /* left of Download */
+	top:6px;
+}
+
+
+/* TODO 2 .dirList-grid -------------------------------------------- */
+.dirList-grid {
+
+}
+
+.dirList-grid .item {
+	position:relative;
+	display:block;
+	float:left;
+
+	width:138px; /* 128px + 2*5 */
+	height:138px;
+
+	/* the thing to calculate with, in the following */
+	font-size:70%;
+	line-height:1.2em;
+
+	padding-bottom:4.8em; /* 3 lines and 4* 0.3 padding = 4.8 em */
+}
+
+.dirList-grid a {
+	text-align: center;
+	display:block;
+
+}
+
+/* a.view ------------------------------ */
+.dirList-grid .view {
+	padding-top:138px;
+	height: 4.8em; /* ensure full height, also for size-less/singleCol/... */
+}
+
+.dirList-grid .view:hover {
+	height: auto;
+}
+
+
+/* icon or thumb */
+.dirList-grid img {
+	position:absolute;
+	top:5px;
+	left:5px;
+}
+
+.dirList-grid .view span {
+	display:block;
+
+	padding: 0.3em 0;
+}
+
+.dirList-grid .view .filename {
+	min-height: 2.3em;
+	height: 2.3em; /* limit to 3 lines, harmonize height. should be 2.4, but for realworld-reasons...*/
+	overflow:hidden;
+}
+
+.dirList-grid .view:hover .filename {
+	height: auto;
+}
+
+
+
+.dirList-grid .view .filesize {
+	height: 1.2em; /* limit to 3 lines, harmonize height*/
+}
+
+.dirList-grid .download {
+	position:absolute;
+	width:32px;
+	height:32px;
+
+	bottom:36px;
+	left:50%;
+	margin-left:-16px;
+
+	font-size: 0;
+
+	padding:3px;
+	z-index:20;
+
+	box-shadow:0 1px 2px 0 rgba(0,0,0,.6);
+	-moz-box-shadow:0 1px 2px 0 rgba(0,0,0,.6);
+	-webkit-box-shadow:0 1px 2px 0 rgba(0,0,0,.6);
+
+	background: #666 url('/static/icon/32/download.png') no-repeat center center;
+
+}
+
+
+/* redirect styling ---------------------------------------------------- */
+body.dirList-redirect {
+	display:block;
+	margin:20px auto;
+	padding:10px;
+
+	width:760px;
+	background:#ccc;
+
+	box-shadow:0 5px 15px 5px rgba(0,0,0,.4);
+	-moz-box-shadow:0 5px 15px 5px rgba(0,0,0,.4);
+	-webkit-box-shadow:0 5px 15px 5px rgba(0,0,0,.4);
+
+	font-size: 80%;
+}
+
+/* slideShow styling -------------------------------------------------- */
+
+.slideshow-play {
+	background: #444;
+	color: #eee;
+	padding: 8px 12px;
+	margin: 0 10px;
+	cursor: pointer;
+}
+.slideshow-play:hover {
+	background: #585858;
+	color: #fff;
+}
+
+#fotorama {
+	z-index: 22;
+}
+
+.fotorama {
+	background: rgba(0,0,0,.9);
+	background: #282828;
+	
+	display: block;
+	position: absolute;
+	width: 100%;
+	top: 0;	
+}
+
+#fotorama .fotorama__video-close {
+	display: block;
+	z-index: 40;
+}
+
+
+

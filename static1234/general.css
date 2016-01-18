@@ -1,0 +1,130 @@
+/* some basic styling (feel free to throw away ) ----------------------------- */
+
+body,table,td,tr,th,input,textarea,h1,h2,h3,h4,h5,h6,.normalText {
+    font-family: Tahoma, Geneva, Arial, Helvetica, sans-serif;
+}
+
+html, body {
+	background: #ddd;
+	padding:0;
+	margin:0;
+}
+
+#head {
+	background-color: #eee;
+	padding: 10px 0 10px 0;
+
+	box-shadow:0 5px 10px 0 rgba(0,0,0,.5);
+	-moz-box-shadow:0 5px 10px 0 rgba(0,0,0,.5);
+	-webkit-box-shadow:0 5px 10px 0 rgba(0,0,0,.5);
+
+	color:#999;
+}
+
+#head a {
+	text-decoration: none;
+	color:#339;
+}
+
+#head a:hover {
+	text-decoration: underline;
+	color:#00a;
+}
+
+h1 {
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+#readme {
+	text-align: justify;
+	background: #eee;
+
+	margin-top:10px;
+	padding:5px 20px;
+
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+
+	font-size: 80%;
+	line-height: 1.5em;
+}
+
+
+/* important trick:
+ * don't use the typical, centered  outer 780px (or 960px or whatever less, for mobile) div wrapper, but assign
+ * individually to #header, #main, #footer, ...
+ *
+ * that way, grid-view (thumbs) can use the full browser width
+ * just by -not- using this style (rather than being trapped in an outer div wrapper,@charset
+ * which would require javascript to dynamically resize to browser width.
+ */
+.singleCol {
+	margin:0 auto;
+	max-width:780px;
+}
+
+
+
+
+/* for mobile, make less wide ==> more readable 
+   COULDDO: remove in favor of responsive approach
+*/
+body.mobile .singleCol {
+	max-width:550px;
+}
+
+/* commodity classes ------------------------------------------------------ */
+hr.clear {
+	clear:both;
+	display: block;
+	float: none;
+	font-size: 0;
+	margin: 0;
+	padding: 0;
+	border-color: transparent;
+}
+
+.floatright {
+	float:right;
+}
+
+
+/* foot ------------------------------------------------------------- */
+#foot {
+	text-align: center;
+	padding-top: 10px;
+}
+
+#foot span, #foot a {
+	padding:10px;
+	color:#bbb;
+
+	font-size: 70%;
+	color:#555;
+
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+#foot a:hover {
+	background:#eee;
+}
+
+
+/* print tweaking ---------------------------------------------------- */
+.printonly {
+	display:none;
+}
+
+@media print { /* needed, because it will be merged. */
+	.printonly {
+		display:block !important;
+	}
+
+	.neverprint {
+		display:none !important;
+	}
+}

@@ -1,0 +1,5 @@
+# FORBIDDEN - fully block access to this folder from client side
+
+Options -Indexes
+Order Deny,Allow
+Deny from all
